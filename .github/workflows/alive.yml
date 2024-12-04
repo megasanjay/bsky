@@ -1,0 +1,23 @@
+name: cron-schedule-updater
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  empty_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - run: git config user.email "ssoundarajan@calmi2.org"
+      - run: git config user.name "Sanjay Soundarajan"
+
+      - name: Create Empty Commit
+        run: git commit --allow-empty -m "keep actions alive"
+
+      - name: Push Empty Commit
+        run: git push origin main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
